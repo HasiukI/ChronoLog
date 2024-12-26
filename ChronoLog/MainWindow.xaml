@@ -5,21 +5,152 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChronoLog.ViewModel"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ChronoLog" 
+        Height="{Binding Window.HeightWindow, Mode=TwoWay}" 
+        Width="{Binding Window.WidthWindow ,Mode=TwoWay}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ShowInTaskbar="False"
+        Topmost="True">
 
-    <Grid>
-        <tb:TaskbarIcon 
-            x:Name="MyNotifyIcon" 
-            Visibility="Visible"
-            LeftClickCommand="{Binding Window.ShowWindowCommand}" >
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Exit" Command="{Binding Window.CloseWindowCommand}"/>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
-        
-        <TextBlock Text="22:00:00"/>
-    </Grid>
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border CornerRadius="10,10,10,10" Background="{Binding Design.SelectedColor.Main}" BorderThickness="2" BorderBrush="{Binding Design.SelectedColor.Border}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseDown">
+                <i:InvokeCommandAction  
+                    Command="{Binding Window.DragWindowCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+
+            <tb:TaskbarIcon 
+                x:Name="MyNotifyIcon" 
+                Visibility="Visible"
+                LeftClickCommand="{Binding Window.ShowWindowCommand}" 
+                IconSource="pack://application:,,,/Image/ChronoLogTask.ico">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Exit" Command="{Binding Window.CloseWindowCommand}"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
+
+
+            <Border Background="{Binding Design.SelectedColor.Header}" Grid.Row="0" CornerRadius="10,10,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+
+                        <Border CornerRadius="10,0,0,0" Padding="3">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.Design.Pages[Setting], RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                            <Setter Property="Background" Value="{Binding Design.SelectedColor.Main}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding Window.ChangePageCommand}" CommandParameter="Setting"/>
+                                    <i:InvokeCommandAction Command="{Binding Design.ChangePageCommand}" CommandParameter="Setting"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Image Source="{Binding Design.Svgs[Setting]}" Width="15" Height="15" />
+                        </Border>
+                        
+                        <Border Padding="3" Margin="3,0">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.Design.Pages[History], RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                            <Setter Property="Background" Value="{Binding Design.SelectedColor.Main}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding Window.ChangePageCommand}" CommandParameter="History"/>
+                                    <i:InvokeCommandAction Command="{Binding Design.ChangePageCommand}" CommandParameter="History"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Image Source="{Binding Design.Svgs[History]}" Width="15" Height="15" />
+                        </Border>
+                        
+                        <Border Padding="3">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DataContext.Design.Pages[StopWatch], RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                            <Setter Property="Background" Value="{Binding Design.SelectedColor.Main}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding Window.ChangePageCommand}" CommandParameter="StopWatch"/>
+                                    <i:InvokeCommandAction Command="{Binding Design.ChangePageCommand}" CommandParameter="StopWatch"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Image Source="{Binding Design.Svgs[Oclock]}" Width="15" Height="15" />
+                        </Border>
+                    </StackPanel>
+
+                    <Border  CornerRadius="0,10,0,0" Grid.Column="1" HorizontalAlignment="Right">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{Binding DataContext.Design.SelectedColor.Enter, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Window.HideWindowCommand}" CommandParameter="StopWatch"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        
+                        <Image Source="{Binding Design.Svgs[Hide]}" Width="20" Height="20" Margin="3,0"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Frame Grid.Row="1" Content="{Binding Window.CurentPage}" NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+    </Border>
 </Window>

@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:ChronoLog"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <Style x:Key="FontTime" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Impact"/>
+            </Style>
+            <Style x:Key="FontQ" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Candara"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

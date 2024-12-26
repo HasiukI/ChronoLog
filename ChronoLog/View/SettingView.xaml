@@ -1,0 +1,74 @@
+﻿<Page x:Class="ChronoLog.View.SettingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ChronoLog.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="150" d:DesignWidth="200"
+      Title="SettingView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Margin="5" Text="Color"
+                       Foreground="{Binding Design.SelectedColor.Font}"/>
+            <ListBox Background="Transparent" BorderThickness="0" 
+                     ItemsSource="{Binding Design.Colors}" SelectedItem="{Binding Design.SelectedColor}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Height="16" Width="16" Name="Border" BorderThickness="2" CornerRadius="20" BorderBrush="Transparent" Background="Transparent">
+                                        <Grid>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border CornerRadius="20" Width="12" Height="12" Background="{Binding Border}">
+
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock FontSize="10" Grid.Column="0" 
+                       Text="HasiukIV" Foreground="{Binding Design.SelectedColor.Font}"/>
+            <TextBlock HorizontalAlignment="Right" FontSize="10" Grid.Column="1" 
+                       Text="ChronoLog version 1.0" Foreground="{Binding Design.SelectedColor.Font}"/>
+        </Grid>
+    </Grid>
+</Page>

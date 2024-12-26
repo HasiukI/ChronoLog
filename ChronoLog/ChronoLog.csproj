@@ -9,8 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Image\ChronoLogTask.ico" />
+    <None Remove="Image\Cycle.svg" />
+    <None Remove="Image\Hide.svg" />
+    <None Remove="Image\History.svg" />
+    <None Remove="Image\Icon.ico" />
+    <None Remove="Image\Oclock.svg" />
+    <None Remove="Image\Pause.svg" />
+    <None Remove="Image\Play.svg" />
+    <None Remove="Image\Save.svg" />
+    <None Remove="Image\Setting.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\ChronoLogTask.ico" />
+    <Resource Include="Image\Cycle.svg" />
+    <Resource Include="Image\Hide.svg" />
+    <Resource Include="Image\History.svg" />
+    <Resource Include="Image\Oclock.svg" />
+    <Resource Include="Image\Pause.svg" />
+    <Resource Include="Image\Play.svg" />
+    <Resource Include="Image\Save.svg" />
+    <Resource Include="Image\Setting.svg" />
   </ItemGroup>
 
 </Project>
